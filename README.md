@@ -62,3 +62,19 @@ Sometimes, after building the common code, VSCode might complain that certain mo
 
 ### Installing new packages
 Keep the root `package.json` free of normal dependencies. Only `devDependencies` are allowed in this club 😉. Specifically, the ones that matter only during development, building, and testing phases.
+
+### DB interface abstraction
+DON'T DO IT...  
+Instead, try creating an abstract class that retrieves certain data based on given parameters. Definitely a bit more work than DB abstraction (assuming a perfect implementation) but might be worth your sanity.
+
+### Adding Azure functions
+1. Create a new folder called `azure` under the root folder, then initialize the azure function app in it.
+2. In the root folder's `package.json`, I've added another script for azure functions folder like this.
+```
+"scripts": {
+    "build:common": "npm run build:common:azure && npm run build:common:functions",
+    "build:common:functions": "npm run --prefix common build && shx rm -rf functions/src/common && shx cp -r common functions/src/common",
+    "build:common:azure": "npm run --prefix common build && shx rm -rf azure/src/common && shx cp -r common azure/src/common"
+}
+```
+3. In the `azure` folder's `package.json`, just add `npm run --prefix ../ build:common:azure` before running `tsc` in the `build` script.

@@ -7,6 +7,7 @@ export default abstract class BaseAction<T = any> {
             return await this.runInternal();
         }
         catch (e: any) {
+            console.error(e);
             return ActionResponse.fail<T>(`An error occurred while running the action: ${e}`, e);
         }
     }

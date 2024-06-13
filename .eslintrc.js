@@ -41,5 +41,6 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": 0,
     "padded-blocks": 0,
     "brace-style": 0,
+    "indent": ["error", 4, { "SwitchCase": 1}],
   },
 };
